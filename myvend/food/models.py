@@ -10,7 +10,7 @@ class Food(models.Model):
     fiber = models.PositiveIntegerField()
     purine = models.PositiveIntegerField()
     location = models.CharField(max_length=50)
-    curr_date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now)
     quantity = models.PositiveIntegerField()
     updated = models.DateTimeField(auto_now=True)
 

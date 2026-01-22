@@ -1,0 +1,17 @@
+{% extends "myvend/base.html %"}
+
+{% block title %}My Virtual Vending Machine{% endblock %}
+
+{% block content %}
+ <h1>My Vurtual Vending Machine</h1>
+ {% for food in foods %}
+  <h2>
+    <a href="{% url 'myvend:food_detail' food.id %}">
+        {{food.name}}
+    </a>
+  </h2>
+  <p class="date">
+    Food logged {{food.date}}
+  </p>
+  {% endfor %}
+{% endblock %}  
