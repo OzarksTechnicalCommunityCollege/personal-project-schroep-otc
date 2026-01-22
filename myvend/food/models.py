@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-# Create Food model
+# Create Food model 
 class Food(models.Model):
     name = models.CharField(max_length=50)
     calories = models.PositiveIntegerField() # using PositiveIntegerField since I want it to be 0 or positive
