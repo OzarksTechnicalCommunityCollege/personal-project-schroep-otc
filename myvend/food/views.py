@@ -6,7 +6,7 @@ from django.http import Http404
 
 # Generic view
 def food_list(request):
-    foods = Food.all()
+    foods = Food.objects.all()
     return render(
         request,
         'myvend/food/list.html',
