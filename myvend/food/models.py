@@ -2,17 +2,17 @@ from django.db import models
 
 # Create FoodType model
 class FoodType(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    food_type = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return self.name
+        return self.food_type
 
 # Create Location model
 class Location(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    location = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
-        return self.name
+        return self.location
 
 # Create FoodItem model
 class FoodItem(models.Model):
