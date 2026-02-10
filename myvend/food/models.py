@@ -1,22 +1,26 @@
 from django.db import models
-from datetime import datetime
-
-# Create FoodItem model 
-class FoodItem(models.Model):
-    food_name = models.CharField(max_length=50)
-    type_id = models.PositiveIntegerField() # using PositiveIntegerField since I want it to be 0 or positive
-    location_id = models.PositiveIntegerField()
-    expiry_date = models.DateField()
-    quantity = models.PositiveIntegerField()
 
 # Create FoodType model
 class FoodType(models.Model):
-    food_type = models.CharField(max_length=50)
-
-# Create Location model
-class Location(models.Model):
-    location = models.CharField(max_length=50)
-    
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
+
+# Create Location model
+class Location(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+# Create FoodItem model
+class FoodItem(models.Model):
+    food_name = models.CharField(max_length=50)
+    food_type = models.ForeignKey(FoodType, on_delete=models.PROTECT, related_name="items")
+    location = models.ForeignKey(Location, on_delete=models.PROTECT, related_name="items")
+    expiry_date = models.DateField()
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.food_name} ({self.quantity})"
