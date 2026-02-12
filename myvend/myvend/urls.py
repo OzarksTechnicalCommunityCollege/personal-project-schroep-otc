@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+app_name = "food"
+
 urlpatterns = [
     path('', views.enter_view, name='home'),
     path('about/', views.about_view, name='about')

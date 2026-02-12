@@ -1,9 +1,51 @@
 <!-- Create home page -->
-<h1>Where is my food?</h1>
-<p>Where is my food?</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Food Inventory</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem; }
+      .card { border: 1px solid #ddd; border-radius: 10px; padding: 1rem; margin: 0.75rem 0; }
+      .muted { color: #666; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #eee; }
+    </style>
+  </head>
+  <body>
+    <h1>Food Inventory</h1>
 
-
-
+    {% if items %}
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Food</th>
+              <th>Type</th>
+              <th>Location</th>
+              <th>Qty</th>
+              <th>Expiry</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+              <tr>
+                <td>{{ item.food_name }}</td>
+                <td>{{ item.food_type }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.expiry_date }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="muted">No foods in the database yet.</p>
+    {% endif %}
+  </body>
+</html>
 
 
 <a href="/about/">Go to About</a><br>
