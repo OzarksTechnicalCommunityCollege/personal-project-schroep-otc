@@ -1,5 +1,5 @@
 from django.contrib import admin
-from.models import FoodItem, FoodType, Location
+from .models import FoodItem, FoodType, Location
 
 
 
