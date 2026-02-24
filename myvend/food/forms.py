@@ -14,3 +14,8 @@ class FoodItemForm(forms.ModelForm):
 # Make search form here
 class SearchForm(forms.Form):
     query = forms.CharField()
+
+# Make login form here
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
