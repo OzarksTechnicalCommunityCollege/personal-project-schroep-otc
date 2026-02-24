@@ -58,7 +58,7 @@ def user_login(request):
                 username=cd['username'],
                 password=cd['password']
             )
-            if user is not NONE:
+            if user is not None:
                 if user.is_active:
                     login(request, user)
                     return HttpResponse('Authenticated successfully')
