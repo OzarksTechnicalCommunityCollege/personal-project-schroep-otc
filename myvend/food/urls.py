@@ -6,4 +6,5 @@ app_name = "food"
 urlpatterns = [
     path("", views.fooditem_list, name="home"),
     path("about/", views.about_view, name="about"),
+    path("search/", views.food_search, name="food_search"),
 ]
