@@ -1,6 +1,7 @@
 from django import forms
 from .models import FoodItem, FoodType, Location
 
+
 # Make model form here
 class FoodItemForm(forms.ModelForm):
     class Meta:
@@ -10,4 +11,6 @@ class FoodItemForm(forms.ModelForm):
             "expiry_date": forms.DateInput(attrs={"type": "date"}),
         }
 
-
+# Make search form here
+class SearchForm(forms.Form):
+    query = forms.CharField()
