@@ -5,7 +5,7 @@ import bleach # strips any dangerous html from input before marked safe
 
 register = template.Library()
 
-ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS + [
+ALLOWED_TAGS = list(bleach.sanitizer.ALLOWED_TAGS) + [
     'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
 ]
 
