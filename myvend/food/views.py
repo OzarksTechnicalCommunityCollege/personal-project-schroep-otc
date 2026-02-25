@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import FoodItem
 from django.contrib.postgres.search import SearchVector
 from .forms import SearchForm, LoginForm
@@ -70,6 +70,11 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'food/login.html', {'form': form})
+
+# Create logout view
+def user_logout(request):
+    logout(request)
+    return redirect('food:home')
 
 # Create dashboard view
 @login_required

@@ -3,7 +3,6 @@
 <html lang="en">
   <head>
     <title>{% block title %}{% endblock %}</title>
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
   </head>
   <body>
     <div id="header">
@@ -11,25 +10,19 @@
         {% if request.user.is_authenticated %}
           <ul class="menu">
             <li {% if section == "dashboard" %}class="food"{% endif %}>
-              <a href="{% url 'dashboard' %}">My dashboard</a>
-            </li>
-            <li {% if section == "food_type" %}class="food"{% endif %}>
-              <a href="#">Food type</a>
-            </li>
-            <li {% if section == "location" %}class="food"{% endif %}>
-              <a href="#">Location</a>
+              <a href="{% url 'food:dashboard' %}">My dashboard</a>
             </li>
           </ul>
         {% endif %}
         <span class="user">
           {% if request.user.is_authenticated %}
             Hello {{ request.user.first_name|default:request.user.username }},
-            <form action="{% url 'logout' %}" method="post">
+            <form action="{% url 'food:logout' %}" method="post">
               <button type="submit">Logout</button>
               {% csrf_token %}
             </form>
           {% else %}
-            <a href="{% url 'login' %}">Log-in</a>
+            <a href="{% url 'food:login' %}">Log-in</a>
           {% endif %}
         </span>
       </div>
