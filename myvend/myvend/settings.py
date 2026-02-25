@@ -84,9 +84,8 @@ DATABASES = {
 }
 
 # Login settings
-LOGIN_REDIRECT_URL = "dashboard"
+LOGIN_REDIRECT_URL = "food:dashboard"
 LOGIN_URL = "login"
-LOGOUT_REDIRECT_URL = '/'
 LOGOUT_URL = "logout"
 
 

@@ -10,7 +10,7 @@ urlpatterns = [
     path("search/", views.food_search, name="food_search"),
     #path("login/", views.user_login, name="login"), #previous login path
     # login / logout urls
-    path("login/", auth_views.LoginView.as_view(template_name="food/login.html"), name="login"),
-    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(template_name="registration/logout.html"), name="logout"),
     path("dashboard/", views.dashboard, name="dashboard"),
 ]
