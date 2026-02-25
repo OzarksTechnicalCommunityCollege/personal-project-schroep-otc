@@ -1,52 +1,41 @@
 <!-- Create home page -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Food Inventory{% endblock %}</title>
-    <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 2rem; }
-      .card { border: 1px solid #ddd; border-radius: 10px; padding: 1rem; margin: 0.75rem 0; }
-      .muted { color: #666; }
-      table { border-collapse: collapse; width: 100%; }
-      th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #eee; }
-    </style>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
   </head>
   <body>
-    {% block content %}
-    <h1>Food Inventory</h1>
-
-    {% if items %}
-      <div class="card">
-        <table>
-          <thead>
-            <tr>
-              <th>Food</th>
-              <th>Type</th>
-              <th>Location</th>
-              <th>Qty</th>
-              <th>Expiry</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in items %}
-              <tr>
-                <td>{{ item.food_name }}</td>
-                <td>{{ item.food_type }}</td>
-                <td>{{ item.location }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.expiry_date }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+    <div id="header">
+      <span class="logo">Food Inventory</span>
+        {% if request.user.is_authenticated %}
+          <ul class="menu">
+            <li {% if section == "dashboard" %}class="food"{% endif %}>
+              <a href="{% url 'dashboard' %}">My dashboard</a>
+            </li>
+            <li {% if section == "food_type" %}class="food"{% endif %}>
+              <a href="#">Food type</a>
+            </li>
+            <li {% if section == "location" %}class="food"{% endif %}>
+              <a href="#">Location</a>
+            </li>
+          </ul>
+        {% endif %}
+        <span class="user">
+          {% if request.user.is_authenticated %}
+            Hello {{ request.user.first_name|default:request.user.username }},
+            <form action="{% url 'logout' %}" method="post">
+              <button type="submit">Logout</button>
+              {% csrf_token %}
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}">Log-in</a>
+          {% endif %}
+        </span>
       </div>
-    {% else %}
-      <p class="muted">No foods in the database yet.</p>
-    {% endif %}
-    {% endblock %}
-
-    <a href="/about/">Go to About</a><br>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
   </body>
 </html>
