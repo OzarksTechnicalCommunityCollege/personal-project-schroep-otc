@@ -74,7 +74,7 @@ def user_login(request):
 # Create logout view
 def user_logout(request):
     logout(request)
-    return redirect('food:home')
+    return redirect('home')
 
 # Create dashboard view
 @login_required

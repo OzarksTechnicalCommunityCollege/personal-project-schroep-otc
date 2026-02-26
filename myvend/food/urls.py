@@ -2,8 +2,6 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
 
-app_name = "food"
-
 urlpatterns = [
     path("", views.fooditem_list, name="home"),
     path("about/", views.about_view, name="about"),
@@ -15,12 +13,16 @@ urlpatterns = [
     # change password urls
     path(
         'password-change/',
-        auth_views.PasswordChangeView.as_view(),
+        auth_views.PasswordChangeView.as_view(
+            template_name='registration/password_change_form.html',
+        ),
         name='password_change'
     ),
     path (
         'password-change/done/',
-        auth_views.PasswordChangeDoneView.as_view(),
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='registration/password_change_done.html',
+            ),
         name='password_change_done'
     ),
 
