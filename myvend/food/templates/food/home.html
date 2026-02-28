@@ -10,7 +10,7 @@
         {% if request.user.is_authenticated %}
           <ul class="menu">
             <li {% if section == "dashboard" %}class="food"{% endif %}>
-              <a href="{% url 'food:dashboard' %}">My dashboard</a>
+              <a href="{% url 'dashboard' %}">My dashboard</a>
             </li>
           </ul>
         {% endif %}
