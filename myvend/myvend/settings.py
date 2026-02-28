@@ -88,6 +88,9 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGIN_URL = "login"
 LOGOUT_URL = "logout"
 
+# Email backend
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
