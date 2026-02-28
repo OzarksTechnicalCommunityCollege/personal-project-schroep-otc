@@ -103,7 +103,7 @@ def register(request):
 
             return render(
                 request,
-                'account/register_done.html',
+                'food/register_done.html',
                 {'new_user': new_user}
             )
     else:
@@ -111,6 +111,6 @@ def register(request):
 
     return render(
         request,
-        'account/register.html',
+        'food/register.html',
         {'user_form': user_form}
     )
