@@ -15,7 +15,7 @@ def fooditem_list(request):
         .all()
         .order_by("food_name")
     )
-    return render(request, "food/home.html", {"items": items})
+    return render(request, "food/inventory.html", {"items": items})
 
 # Define "about" view
 def about_view(request):

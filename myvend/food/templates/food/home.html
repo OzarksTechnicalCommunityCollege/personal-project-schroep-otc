@@ -4,6 +4,21 @@
   <head>
     <title>{% block title %}{% endblock %}</title>
   </head>
+
+  <!-- JavaScript button to adjust quantity -->
+  <script>
+    function updateQuantity(itemId, action) {
+        let span = document.getElementById(`quantity-${itemId}`);
+        let quantity = parseInt(span.textContent);
+        if (action === 'add') {
+            quantity += 1;
+        } else if (action === 'subtract' && quantity > 0) {
+            quantity -= 1;
+        }
+        span.textContent = quantity;
+    }
+  </script>
+
   <body>
     <div id="header">
       <span class="logo">Food Inventory</span>

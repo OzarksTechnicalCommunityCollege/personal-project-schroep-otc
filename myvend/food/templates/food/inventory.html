@@ -1,0 +1,33 @@
+{% extends "food/home.html" %}
+
+{% block title %}Food Inventory{% endblock %}
+
+{% block content %}
+  <h1>Food Inventory</h1>
+  {% if items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Food</th><th>Type</th><th>Location</th><th>Qty</th><th>Expiry</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ item.food_name }}</td>
+            <td>{{ item.food_type }}</td>
+            <td>{{ item.location }}</td>
+            <td>
+              <button onclick="updateQuantity({{ item.id }}, 'subtract')">-</button>
+              <span id="quantity-{{ item.id }}">{{ item.quantity }}</span>
+              <button onclick="updateQuantity({{ item.id }}, 'add')">+</button>
+            </td>
+            <td>{{ item.expiry_date }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No foods in the database yet.</p>
+  {% endif %}
+{% endblock %}
