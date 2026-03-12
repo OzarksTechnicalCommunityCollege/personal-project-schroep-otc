@@ -35,3 +35,6 @@ class FoodItemTag(models.Model):
 
     class Meta:
         unique_together = ("food_item", "tag")
+
+    def __str__(self):
+        return f"{self.food_item} — {self.tag}"
