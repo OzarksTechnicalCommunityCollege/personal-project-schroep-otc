@@ -14,6 +14,13 @@ class Location(models.Model):
     def __str__(self):
         return self.location
 
+# Create Tag model
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 # Create FoodItem model
 class FoodItem(models.Model):
     food_name = models.CharField(max_length=50)
