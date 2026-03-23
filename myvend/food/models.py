@@ -29,6 +29,7 @@ class FoodItem(models.Model):
     expiry_date = models.DateField()
     quantity = models.PositiveIntegerField(default=1)
     tags = models.ManyToManyField(Tag, through="FoodItemTag", related_name="food_items")
+    is_expiring_soon = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.food_name} ({self.quantity})"

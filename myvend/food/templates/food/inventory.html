@@ -22,7 +22,9 @@
               <span id="quantity-{{ item.id }}">{{ item.quantity }}</span>
               <button onclick="updateQuantity({{ item.id }}, 'add')">+</button>
             </td>
-            <td>{{ item.expiry_date }}</td>
+            <td class="{% if item.is_expiring_soon %}expiring{% endif %}">
+              {{ item.expiry_date }}
+            </td>
             <td>
               {% for tag in item.tags.all %}
                 <span>{{ tag.name }}</span>
