@@ -12,6 +12,7 @@ from .forms import SearchForm, LoginForm, UserRegistrationForm
 def fooditem_list(request):
     items = (
         FoodItem.objects.select_related("food_type", "location")
+        .prefetch_related("tags")
         .all()
         .order_by("food_name")
     )

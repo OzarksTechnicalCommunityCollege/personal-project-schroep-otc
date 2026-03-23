@@ -8,7 +8,7 @@
     <table>
       <thead>
         <tr>
-          <th>Food</th><th>Type</th><th>Location</th><th>Qty</th><th>Expiry</th>
+          <th>Food</th><th>Type</th><th>Location</th><th>Qty</th><th>Expiry</th><th>Tags</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +23,14 @@
               <button onclick="updateQuantity({{ item.id }}, 'add')">+</button>
             </td>
             <td>{{ item.expiry_date }}</td>
+            <td>
+              {% for tag in item.tags.all %}
+                <span>{{ tag.name }}</span>
+                {% if not forloop.last %}, {% endif %}
+              {% empty %}
+                <span>—</span>
+              {% endfor %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
