@@ -5,6 +5,15 @@ from django.shortcuts import render, redirect
 from .models import FoodItem
 from django.contrib.postgres.search import SearchVector
 from .forms import SearchForm, LoginForm, UserRegistrationForm
+import redis
+from django.conf import settings
+
+# Connect to redis
+r = redis.Redis(
+    host=settings.REDIS_HOST,
+    port=settings.REDIS_PORT,
+    db=settings.REDIS_DB
+)
 
 # Create your views here.
 
@@ -16,7 +25,12 @@ def fooditem_list(request):
         .all()
         .order_by("food_name")
     )
-    return render(request, "food/inventory.html", {"items": items})
+    
+    # Cache the inventory count in Redis
+    r.set('food_item_count', items.count())
+    count = int(r.get('food_item_count'))
+
+    return render(request, "food/inventory.html", {"items": items, "count": count})
 
 # Define "about" view
 def about_view(request):
