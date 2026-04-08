@@ -1,0 +1,32 @@
+{% extends "food/home.html" %}
+
+{% block title %}Food Cart{% endblock %}
+
+{% block content %}
+    <h1>Food Cart</h1>
+
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <strong>{{ item.food_item.food_name }}</strong><br>
+                    Quantity: {{ item.quantity }}<br>
+                    Location: {{ item.food_item.location }}<br>
+                    Type: {{ item.food_item.food_type }}<br>
+
+                    <form action="{% url 'cart_remove' item.food_item.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="/">Back to Home</a>
+{% endblock %}

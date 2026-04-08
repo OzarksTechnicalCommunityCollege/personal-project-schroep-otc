@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import FoodItem
 from django.contrib.postgres.search import SearchVector
 from .forms import SearchForm, LoginForm, UserRegistrationForm
 import redis
 from django.conf import settings
+from .cart import FoodCart
+from django.views.decorators.http import require_POST
 
 # Connect to redis
 r = redis.Redis(
@@ -17,6 +19,16 @@ r = redis.Redis(
 
 # Create your views here.
 
+# Define home view
+def home(request):
+    items = FoodItem.objects.all()
+    cart = FoodCart(request)
+
+    return render(request, "food/inventory.html", {
+        "items": items,
+        "cart_count": len(cart),
+    })
+
 # Render food entry form into a view
 def fooditem_list(request):
     items = (
@@ -25,12 +37,18 @@ def fooditem_list(request):
         .all()
         .order_by("food_name")
     )
-    
+
     # Cache the inventory count in Redis
     r.set('food_item_count', items.count())
     count = int(r.get('food_item_count'))
 
-    return render(request, "food/inventory.html", {"items": items, "count": count})
+    cart = FoodCart(request)
+
+    return render(request, "food/inventory.html", {
+        "items": items,
+        "count": count,
+        "cart_count": len(cart),
+    })
 
 # Define "about" view
 def about_view(request):
@@ -129,3 +147,44 @@ def register(request):
         'food/register.html',
         {'user_form': user_form}
     )
+
+# Food Cart Views
+
+# Add item to cart
+@require_POST
+def cart_add(request, food_item_id):
+    cart = FoodCart(request)
+    food_item = get_object_or_404(FoodItem, id=food_item_id)
+
+    cart.add(food_item)
+
+    return redirect("cart_detail")
+
+# Remove item from cart
+@require_POST
+def cart_remove(request, food_item_id):
+    cart = FoodCart(request)
+    food_item = get_object_or_404(FoodItem, id=food_item_id)
+
+    cart.remove(food_item)
+
+    return redirect("cart_detail")
+
+# Display items in cart
+def cart_detail(request):
+    cart = FoodCart(request)
+    session_items = cart.cart
+
+    items = []
+
+    for item_id, session_quantity in session_items.items():
+        food_item = get_object_or_404(FoodItem, id=item_id)
+        items.append({
+            "food_item": food_item,
+            "quantity": session_quantity,
+        })
+
+    return render(request, "food/cart_detail.html", {
+        "items": items,
+        "cart_count": len(cart),
+    })

@@ -22,6 +22,11 @@
   <body>
     <div id="header">
       <span class="logo">Food Inventory</span>
+
+      <a href="{% url 'cart_detail' %}">
+        View Cart ({{ cart_count|default:0 }})
+      </a>
+
         {% if request.user.is_authenticated %}
           <ul class="menu">
             <li {% if section == "dashboard" %}class="food"{% endif %}>

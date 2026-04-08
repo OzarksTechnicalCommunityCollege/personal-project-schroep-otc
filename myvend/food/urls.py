@@ -60,4 +60,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("register/", views.register, name="register"),
+    path("cart/", views.cart_detail, name="cart_detail"),
+    path("cart/add/<int:food_item_id>/", views.cart_add, name="cart_add"),
+    path("cart/remove/<int:food_item_id>/", views.cart_remove, name="cart_remove"),
 ]

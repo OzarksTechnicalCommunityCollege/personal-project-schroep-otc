@@ -8,7 +8,13 @@
     <table>
       <thead>
         <tr>
-          <th>Food</th><th>Type</th><th>Location</th><th>Qty</th><th>Expiry</th><th>Tags</th>
+          <th>Food</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Qty</th>
+          <th>Expiry</th>
+          <th>Tags</th>
+          <th>Cart</th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +38,19 @@
               {% empty %}
                 <span>—</span>
               {% endfor %}
+            </td>
+            <td>
+              <!-- ADD -->
+                <form action="{% url 'cart_add' item.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit">Add</button>
+                </form>
+
+              <!-- REMOVE -->
+              <form action="{% url 'cart_remove' item.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Remove</button>
+              </form>
             </td>
           </tr>
         {% endfor %}
