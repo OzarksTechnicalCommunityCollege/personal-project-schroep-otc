@@ -100,6 +100,11 @@ REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0 
 
+# Add Session Setting
+
+CART_SESSION_ID = 'cart'
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
