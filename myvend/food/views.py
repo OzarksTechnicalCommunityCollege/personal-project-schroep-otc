@@ -190,6 +190,7 @@ def cart_detail(request):
         "cart_count": len(cart),
     })
 
+#Create fetch_nutrition view
 @require_POST
 def fetch_nutrition(request, food_item_id):
     food_item = get_object_or_404(FoodItem, id=food_item_id)

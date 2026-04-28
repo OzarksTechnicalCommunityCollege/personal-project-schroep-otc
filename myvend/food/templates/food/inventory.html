@@ -15,6 +15,7 @@
           <th>Expiry</th>
           <th>Tags</th>
           <th>Cart</th>
+          <th>Nutrition</th>
         </tr>
       </thead>
       <tbody>
@@ -51,6 +52,23 @@
                 {% csrf_token %}
                 <button type="submit">Remove</button>
               </form>
+            </td>
+            <td>
+              <form method="post" action="{% url 'fetch_nutrition' item.id %}">
+                {% csrf_token %}
+                <button type="submit">Fetch</button>
+              </form>
+
+              {% if item.nutrition %}
+                <div style="font-size: 0.8em;">
+                  {{ item.nutrition.calories }} kcal<br>
+                  P: {{ item.nutrition.protein_g }}g |
+                  C: {{ item.nutrition.carbs_g }}g |
+                  F: {{ item.nutrition.fat_g }}g
+                </div>
+              {% else %}
+                <div style="font-size: 0.8em;">—</div>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}
