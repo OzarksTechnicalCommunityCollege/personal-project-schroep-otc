@@ -115,7 +115,7 @@ def dashboard(request):
     return render(
         request,
         "food/dashboard.html",
-        {"section": "dashboard"}
+        {"section": "dashboard"} 
     )
 
 # Create registration view
