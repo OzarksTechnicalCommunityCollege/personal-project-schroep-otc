@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import FoodItem
+from .models import FoodItem, NutritionInfo
 from django.contrib.postgres.search import SearchVector
 from .forms import SearchForm, LoginForm, UserRegistrationForm
 import redis
 from django.conf import settings
 from .cart import FoodCart
 from django.views.decorators.http import require_POST
+from .services.usda import search_food, get_nutrition_from_food
 
 # Connect to redis
 r = redis.Redis(
@@ -188,3 +189,20 @@ def cart_detail(request):
         "items": items,
         "cart_count": len(cart),
     })
+
+@require_POST
+def fetch_nutrition(request, food_item_id):
+    food_item = get_object_or_404(FoodItem, id=food_item_id)
+
+    results = search_food(food_item.food_name)
+
+    if results:
+        first_result = results[0]
+        nutrition_data = get_nutrition_from_food(first_result)
+
+        NutritionInfo.objects.update_or_create(
+            food_item=food_item,
+            defaults=nutrition_data
+        )
+
+    return redirect("home")
