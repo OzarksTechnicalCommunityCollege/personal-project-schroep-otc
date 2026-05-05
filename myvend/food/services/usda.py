@@ -33,7 +33,7 @@ def get_nutrition_from_food(food):
         "carbs_g": get_nutrient(food, "Carbohydrate, by difference"),
         "fat_g": get_nutrient(food, "Total lipid (fat)"),
         "fiber_g": get_nutrient(food, "Fiber, total dietary"),
-        "sugar_g": get_nutrient(food, "Sugars, total including NLEA"),
+        "sugar_g": get_nutrient(food, "Total Sugars"),
         "sodium_mg": get_nutrient(food, "Sodium, Na"),
         "serving_size": food.get("servingSize"),
         "serving_unit": food.get("servingSizeUnit", ""),
