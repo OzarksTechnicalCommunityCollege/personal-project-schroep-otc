@@ -31,6 +31,9 @@ class FoodItem(models.Model):
     tags = models.ManyToManyField(Tag, through="FoodItemTag", related_name="food_items")
     is_expiring_soon = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ["food_name"]
+
     def __str__(self):
         return f"{self.food_name} ({self.quantity})"
     
