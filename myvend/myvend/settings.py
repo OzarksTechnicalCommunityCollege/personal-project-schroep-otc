@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'food.apps.FoodConfig',
     'debug_toolbar',
+    'import_export',
 ]
 
 MIDDLEWARE = [
