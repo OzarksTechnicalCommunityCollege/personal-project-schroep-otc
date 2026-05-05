@@ -149,9 +149,7 @@ def register(request):
         {'user_form': user_form}
     )
 
-# Food Cart Views
-
-# Add item to cart
+# Food Cart View: Add item to cart
 @require_POST
 def cart_add(request, food_item_id):
     cart = FoodCart(request)
@@ -161,7 +159,7 @@ def cart_add(request, food_item_id):
 
     return redirect("cart_detail")
 
-# Remove item from cart
+# Food Cart View: Remove item from cart
 @require_POST
 def cart_remove(request, food_item_id):
     cart = FoodCart(request)
@@ -171,7 +169,7 @@ def cart_remove(request, food_item_id):
 
     return redirect("cart_detail")
 
-# Display items in cart
+# Food Cart View: Display items in cart
 def cart_detail(request):
     cart = FoodCart(request)
     session_items = cart.cart
