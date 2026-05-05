@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import FoodItem, FoodType, Location
+from .models import FoodItem, FoodType, Location, Tag, FoodItemTag, NutritionInfo
+from import_export.admin import ExportMixin
 
 
 
@@ -7,7 +8,7 @@ from .models import FoodItem, FoodType, Location
 
 # Register your models here.
 @admin.register(FoodItem)
-class FoodItemAdmin(admin.ModelAdmin):
+class FoodItemAdmin(ExportMixin, admin.ModelAdmin):
     list_display = ["food_name", "food_type", "location", "quantity", "expiry_date"]
     list_filter = ["food_type", "location"]
     search_fields = ["food_name"]
@@ -17,3 +18,6 @@ class FoodItemAdmin(admin.ModelAdmin):
 
 admin.site.register(FoodType)
 admin.site.register(Location)
+admin.site.register(Tag)
+admin.site.register(FoodItemTag)
+admin.site.register(NutritionInfo)
