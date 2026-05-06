@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'food.apps.FoodConfig',
     'debug_toolbar',
     'import_export',
+    'catalog',
+    'nutrition',
+    'food',
 ]
 
 MIDDLEWARE = [
