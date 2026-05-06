@@ -1,54 +1,193 @@
 <!-- Create home page -->
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>{% block title %}{% endblock %}</title>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- JavaScript button to adjust quantity -->
-  <script>
-    function updateQuantity(itemId, action) {
-        let span = document.getElementById(`quantity-${itemId}`);
-        let quantity = parseInt(span.textContent);
-        if (action === 'add') {
-            quantity += 1;
-        } else if (action === 'subtract' && quantity > 0) {
-            quantity -= 1;
-        }
-        span.textContent = quantity;
+  <title>{% block title %}{% endblock %}</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
     }
-  </script>
 
-  <body>
-    <div id="header">
-      <span class="logo">Food Inventory</span>
+    /* Header */
+    #header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 30px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    #header a {
+      color: white;
+      text-decoration: none;
+      margin-right: 15px;
+    }
+
+    #header a:hover {
+      text-decoration: underline;
+    }
+
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: inline-flex;
+      gap: 15px;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Main content */
+    #content {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th {
+      background-color: #34495e;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #eef3f7;
+    }
+
+    /* Buttons */
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 2px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Expiring food */
+    .expiring {
+      color: red;
+      font-weight: bold;
+    }
+
+    /* Nutrition block */
+    .nutrition-info {
+      font-size: 0.85em;
+      line-height: 1.4;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      table {
+        font-size: 0.85rem;
+      }
+
+      #header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<!-- JavaScript button to adjust quantity -->
+<script>
+  function updateQuantity(itemId, action) {
+      let span = document.getElementById(`quantity-${itemId}`);
+      let quantity = parseInt(span.textContent);
+
+      if (action === 'add') {
+          quantity += 1;
+      } else if (action === 'subtract' && quantity > 0) {
+          quantity -= 1;
+      }
+
+      span.textContent = quantity;
+  }
+</script>
+
+<body>
+
+  <div id="header">
+    <span class="logo">Food Inventory</span>
+
+    <div>
+      <a href="{% url 'home' %}">Home</a>
 
       <a href="{% url 'cart_detail' %}">
         View Cart ({{ cart_count|default:0 }})
       </a>
 
-        {% if request.user.is_authenticated %}
-          <ul class="menu">
-            <li {% if section == "dashboard" %}class="food"{% endif %}>
-              <a href="{% url 'dashboard' %}">My dashboard</a>
-            </li>
-          </ul>
-        {% endif %}
-        <span class="user">
-          {% if request.user.is_authenticated %}
-            Hello {{ request.user.first_name|default:request.user.username }},
-            <form action="{% url 'logout' %}" method="post">
-              <button type="submit">Logout</button>
-              {% csrf_token %}
-            </form>
-          {% else %}
-            <a href="{% url 'login' %}">Log-in</a>
-          {% endif %}
-        </span>
-      </div>
-    <div id="content">
-      {% block content %}
-      {% endblock %}
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+      {% endif %}
     </div>
-  </body>
+
+    <span class="user">
+      {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name|default:request.user.username }}
+
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Log-in</a>
+      {% endif %}
+    </span>
+  </div>
+
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
 </html>
