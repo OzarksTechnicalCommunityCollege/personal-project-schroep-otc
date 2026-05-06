@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import FoodItem, FoodType, Location, Tag, FoodItemTag, NutritionInfo
+from .models import FoodItem,FoodItemTag
+from catalog.models import FoodType, Location, Tag
+from nutrition.models import NutritionInfo
 from import_export.admin import ExportMixin
 
 

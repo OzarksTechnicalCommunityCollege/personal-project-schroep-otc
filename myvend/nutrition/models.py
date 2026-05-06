@@ -2,11 +2,7 @@ from django.db import models
 
 # Create NutritionInfo model
 class NutritionInfo(models.Model):
-    food_item = models.OneToOneField(
-        FoodItem,
-        on_delete=models.CASCADE,
-        related_name="nutrition"
-    )
+    food_item = models.OneToOneField('food.FoodItem', on_delete=models.CASCADE, related_name="nutrition")
 
     fdc_id = models.IntegerField(blank=True, null=True)
     calories = models.FloatField(blank=True, null=True)

@@ -1,5 +1,6 @@
 from django import forms
-from .models import FoodItem, FoodType, Location
+from .models import FoodItem
+from catalog.models import FoodType, Location
 from django.contrib.auth import get_user_model
 
 

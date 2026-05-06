@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'import_export',
     'catalog',
     'nutrition',
-    'food',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +96,14 @@ DATABASES = {
         'HOST': config('DB_HOST'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 # Login settings
 LOGIN_REDIRECT_URL = "dashboard"
