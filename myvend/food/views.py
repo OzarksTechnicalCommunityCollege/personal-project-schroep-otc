@@ -2,14 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import FoodItem, NutritionInfo
+from .models import FoodItem
+from nutrition.models import NutritionInfo
 from django.contrib.postgres.search import SearchVector
 from .forms import SearchForm, LoginForm, UserRegistrationForm
 import redis
 from django.conf import settings
 from .cart import FoodCart
 from django.views.decorators.http import require_POST
-from .services.usda import search_food, get_nutrition_from_food
+from nutrition.services.usda import search_food, get_nutrition_from_food
 
 # Connect to redis
 r = redis.Redis(
