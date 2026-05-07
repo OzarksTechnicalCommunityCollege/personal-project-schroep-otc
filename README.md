@@ -4,3 +4,5 @@
 Title: Vending Machine Food App
 
 Author: S. Schroeppel
+
+I was going to do a new app (music inventory), but with it being so close to finals, I decided to convert my old, single app project to a multi-app project, clean some stuff up, and add features. So, it's still a food app.
