@@ -3,6 +3,57 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <h1>Dashboard</h1>
-  <p>Welcome to your dashboard.</p>
+  <h1>Nutrition Dashboard</h1>
+
+  <p>This chart shows calories for food items that have nutrition data.</p>
+
+  <canvas id="calorieChart" width="400" height="200"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const foodNames = {{ food_names|safe }};
+    const calories = {{ calories|safe }};
+
+    const ctx = document.getElementById("calorieChart");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: foodNames,
+        datasets: [{
+          label: "Calories",
+          data: calories,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: "Calories by Food Item"
+          },
+          legend: {
+            display: true
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Calories"
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: "Food Item"
+            }
+          }
+        }
+      }
+    });
+  </script>
 {% endblock %}

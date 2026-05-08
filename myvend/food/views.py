@@ -11,6 +11,7 @@ from django.conf import settings
 from .cart import FoodCart
 from django.views.decorators.http import require_POST
 from nutrition.services.usda import search_food, get_nutrition_from_food
+import json
 
 # Connect to redis
 r = redis.Redis(
@@ -114,10 +115,23 @@ def user_logout(request):
 # Create dashboard view
 @login_required
 def dashboard(request):
+    items = FoodItem.objects.filter(nutrition__isnull=False).select_related("nutrition")
+
+    food_names = []
+    calories = []
+
+    for item in items:
+        food_names.append(item.food_name)
+        calories.append(item.nutrition.calories or 0)
+
     return render(
         request,
         "food/dashboard.html",
-        {"section": "dashboard"} 
+        {
+            "section": "dashboard",
+            "food_names": json.dumps(food_names),
+            "calories": json.dumps(calories),
+        }
     )
 
 # Create registration view
